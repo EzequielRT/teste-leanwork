@@ -31,7 +31,7 @@ app.MapControllerRoute(
     });
 app.MapControllerRoute(
     name: "Home.UserDetails",
-    pattern: "detalhes-do-usuario/{login:alpha}",
+    pattern: "detalhes-do-usuario/{login}",
     defaults: new
     {
         controller = "Home",
@@ -39,7 +39,7 @@ app.MapControllerRoute(
     });
 app.MapControllerRoute(
     name: "Home.UserRepositories",
-    pattern: "repositorios-do-usuario/{login:alpha}",
+    pattern: "repositorios-do-usuario/{login}",
     defaults: new
     {
         controller = "Home",

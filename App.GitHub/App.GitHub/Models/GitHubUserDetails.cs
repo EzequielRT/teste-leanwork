@@ -20,7 +20,7 @@ namespace App.GitHub.Models
         public string? Email { get; set; }
 
         [JsonPropertyName("hireable")]
-        public string? Hireable { get; set; }
+        public bool? Hireable { get; set; }
 
         [JsonPropertyName("bio")]
         public string? Bio { get; set; }
