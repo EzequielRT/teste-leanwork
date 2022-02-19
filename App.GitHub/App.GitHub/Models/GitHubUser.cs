@@ -1,24 +1,61 @@
-﻿namespace App.GitHub.Models
+﻿using System.Text.Json.Serialization;
+
+namespace App.GitHub.Models
 {
     public class GitHubUser
     {
-        public string login { get; set; }
-        public int id { get; set; }
-        public string node_id { get; set; }
-        public string avatar_url { get; set; }
-        public string gravatar_id { get; set; }
-        public string url { get; set; }
-        public string html_url { get; set; }
-        public string followers_url { get; set; }
-        public string following_url { get; set; }
-        public string gists_url { get; set; }
-        public string starred_url { get; set; }
-        public string subscriptions_url { get; set; }
-        public string organizations_url { get; set; }
-        public string repos_url { get; set; }
-        public string events_url { get; set; }
-        public string received_events_url { get; set; }
-        public string type { get; set; }
-        public bool site_admin { get; set; }
+        [JsonPropertyName("login")]
+        public string? Login { get; set; }
+
+        [JsonPropertyName("id")]
+        public long? Id { get; set; }
+
+        [JsonPropertyName("node_id")]
+        public string? NodeId { get; set; }
+
+        [JsonPropertyName("avatar_url")]
+        public Uri? AvatarUrl { get; set; }
+
+        [JsonPropertyName("gravatar_id")]
+        public string? GravatarId { get; set; }
+
+        [JsonPropertyName("url")]
+        public Uri? Url { get; set; }
+
+        [JsonPropertyName("html_url")]
+        public Uri? HtmlUrl { get; set; }
+
+        [JsonPropertyName("followers_url")]
+        public Uri? FollowersUrl { get; set; }
+
+        [JsonPropertyName("following_url")]
+        public string? FollowingUrl { get; set; }
+
+        [JsonPropertyName("gists_url")]
+        public string? GistsUrl { get; set; }
+
+        [JsonPropertyName("starred_url")]
+        public string? StarredUrl { get; set; }
+
+        [JsonPropertyName("subscriptions_url")]
+        public Uri? SubscriptionsUrl { get; set; }
+
+        [JsonPropertyName("organizations_url")]
+        public Uri? OrganizationsUrl { get; set; }
+
+        [JsonPropertyName("repos_url")]
+        public Uri? ReposUrl { get; set; }
+
+        [JsonPropertyName("events_url")]
+        public string? EventsUrl { get; set; }
+
+        [JsonPropertyName("received_events_url")]
+        public Uri? ReceivedEventsUrl { get; set; }
+
+        [JsonPropertyName("type")]
+        public string? Type { get; set; }
+
+        [JsonPropertyName("site_admin")]
+        public bool? SiteAdmin { get; set; }
     }
 }

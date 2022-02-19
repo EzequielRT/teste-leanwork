@@ -4,32 +4,32 @@
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Detalhes do Usuario @Model.login</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Detalhes do Usuario @Model.Login</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="container">
                     <div class="row">                        
                         <div class="col">
-                            <b>Id:</b> @Model.id
+                            <b>Id:</b> @Model.Id
                             <hr />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <b>Login:</b> @Model.login
+                            <b>Login:</b> @Model.Login
                             <hr />
                         </div>                        
                     </div>
                     <div class="row">                        
                         <div class="col">
-                            <b>Url:</b> <a href="@Model.html_url" target="_blank">@Model.html_url</a>
+                            <b>Url:</b> <a href="@Model.HtmlUrl" target="_blank">@Model.HtmlUrl</a>
                             <hr />
                         </div>
                     </div>
                     <div class="row">                        
                         <div class="col">
-                            <b>Cadastro:</b> @DateTime.Parse(@Model.created_at).ToString("dd/MM/yyyy")
+                            <b>Cadastro:</b> @DateTimeOffset.Parse(@Model.CreatedAt.ToString("dd/MM/yyyy"))
                             <hr />
                         </div>
                     </div>

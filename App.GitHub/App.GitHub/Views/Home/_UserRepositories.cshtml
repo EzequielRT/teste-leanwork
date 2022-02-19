@@ -4,13 +4,13 @@
     <thead class="table-dark">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.id)
+                @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.name)
+                @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.html_url)
+                @Html.DisplayNameFor(model => model.HtmlUrl)
             </th>
         </tr>
     </thead>
@@ -19,13 +19,13 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.id)
+                    @Html.DisplayFor(modelItem => item.Id)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.name)
+                    @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    <a href="@Html.DisplayFor(modelItem => item.html_url)" target="_blank">@item.html_url</a>
+                    <a href="@Html.DisplayFor(modelItem => item.HtmlUrl)" target="_blank">@item.HtmlUrl</a>
                 </td>
             </tr>
         }

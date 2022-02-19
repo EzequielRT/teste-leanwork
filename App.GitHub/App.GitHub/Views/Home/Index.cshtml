@@ -8,10 +8,10 @@
     <thead class="table-dark">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.id)
+                @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.login)
+                @Html.DisplayNameFor(model => model.Id)
             </th>
             <th></th>
         </tr>
@@ -21,13 +21,13 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.id)
+                    @Html.DisplayFor(modelItem => item.Id)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.login)
+                    @Html.DisplayFor(modelItem => item.Login)
                 </td>
                 <td>
-                    <button class="btn btn-warning btnModal" data-id="@item.login"><span class="fa fa-search"></span></button>
+                    <button class="btn btn-warning btnModal" data-id="@item.Login"><span class="fa fa-search"></span></button>
                 </td>
             </tr>
         }

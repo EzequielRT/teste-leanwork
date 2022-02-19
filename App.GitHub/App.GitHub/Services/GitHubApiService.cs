@@ -23,7 +23,7 @@ namespace App.GitHub.Services
             var request = new RestRequest("users", Method.Get)
                 .AddParameter("per_page", "100");
             var response = await _client.ExecuteAsync<IEnumerable<GitHubUser>>(request);
-            IEnumerable<GitHubUser> users = response.Data;
+            IEnumerable<GitHubUser>? users = response.Data;
 
             return users;
         }
@@ -33,7 +33,7 @@ namespace App.GitHub.Services
             var request = new RestRequest("users/{username}", Method.Get)
                 .AddUrlSegment("username", login);
             var response = await _client.ExecuteGetAsync<GitHubUserDetails>(request);
-            GitHubUserDetails user = response.Data;
+            GitHubUserDetails? user = response.Data;
 
             return user;
         }
@@ -44,7 +44,7 @@ namespace App.GitHub.Services
                 .AddParameter("per_page", "100")
                 .AddUrlSegment("username", login);
             var response = await _client.ExecuteGetAsync<IEnumerable<GitHubUserRepository>>(request);
-            IEnumerable<GitHubUserRepository> repositories = response.Data;
+            IEnumerable<GitHubUserRepository>? repositories = response.Data;
 
             return repositories;
         }

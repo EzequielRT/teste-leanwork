@@ -1,20 +1,49 @@
-﻿namespace App.GitHub.Models
+﻿using System.Text.Json.Serialization;
+
+namespace App.GitHub.Models
 {
     public class GitHubUserDetails : GitHubUser
     {
-        public string name { get; set; }
-        public string company { get; set; }
-        public string blog { get; set; }
-        public string location { get; set; }
-        public string email { get; set; }
-        public bool? hireable { get; set; }
-        public string bio { get; set; }
-        public string twitter_username { get; set; }
-        public int public_repos { get; set; }
-        public int public_gists { get; set; }
-        public int followers { get; set; }
-        public int following { get; set; }
-        public string created_at { get; set; }
-        public string updated_at { get; set; }
+        [JsonPropertyName("name")]
+        public string? Name { get; set; }
+
+        [JsonPropertyName("company")]
+        public string? Company { get; set; }
+
+        [JsonPropertyName("blog")]
+        public Uri? Blog { get; set; }
+
+        [JsonPropertyName("location")]
+        public string? Location { get; set; }
+
+        [JsonPropertyName("email")]
+        public string? Email { get; set; }
+
+        [JsonPropertyName("hireable")]
+        public string? Hireable { get; set; }
+
+        [JsonPropertyName("bio")]
+        public string? Bio { get; set; }
+
+        [JsonPropertyName("twitter_username")]
+        public string? TwitterUsername { get; set; }
+
+        [JsonPropertyName("public_repos")]
+        public int? PublicRepos { get; set; }
+
+        [JsonPropertyName("public_gists")]
+        public int? PublicGists { get; set; }
+
+        [JsonPropertyName("followers")]
+        public long Followers { get; set; }
+
+        [JsonPropertyName("following")]
+        public long Following { get; set; }
+
+        [JsonPropertyName("created_at")]
+        public DateTimeOffset CreatedAt { get; set; }
+
+        [JsonPropertyName("updated_at")]
+        public DateTimeOffset UpdatedAt { get; set; }
     }
 }
