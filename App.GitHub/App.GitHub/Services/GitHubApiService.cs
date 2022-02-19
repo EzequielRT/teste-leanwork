@@ -48,5 +48,10 @@ namespace App.GitHub.Services
 
             return repositories;
         }
+
+        public void Dispose()
+        {
+            _client?.Dispose();
+        }
     }
 }
