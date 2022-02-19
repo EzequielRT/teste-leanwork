@@ -1,5 +1,6 @@
 ﻿using App.GitHub.Models;
 using App.GitHub.Services;
+using App.GitHub.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App.GitHub.Controllers
@@ -29,27 +30,33 @@ namespace App.GitHub.Controllers
         [HttpGet]
         public async Task<IActionResult> UserDetails(string login)
         {
-            GitHubUserDetails user = await _gitHubApiService.GetUserDetailsAsync(login);
+            var user = await GetUserDetails(login);
+            var repositories = await GetUserRepositories(login);
 
-            if (user == null)
+            var userViewModel = new UserDetailsViewModel
+            {
+                User = user,
+                UserRepositories = repositories
+            };
+
+            if (userViewModel == null)
             {
                 return NotFound();
             }
 
-            return PartialView("_UserDetails", user);
+            return PartialView("_UserDetails", userViewModel);
+        }        
+
+        private async Task<GitHubUserDetails> GetUserDetails(string login)
+        {
+            var user = await _gitHubApiService.GetUserDetailsAsync(login);
+            return user;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> UserRepositories(string login)
+        private async Task<IEnumerable<GitHubUserRepository>> GetUserRepositories(string login)
         {
-            IEnumerable<GitHubUserRepository> repositories = await _gitHubApiService.GetUserRepositoriesAsync(login);
-
-            if (repositories == null)
-            {
-                return NotFound();
-            }
-
-            return PartialView("_UserRepositories", repositories);
+            var repositories = await _gitHubApiService.GetUserRepositoriesAsync(login);
+            return repositories;
         }
     }
 }

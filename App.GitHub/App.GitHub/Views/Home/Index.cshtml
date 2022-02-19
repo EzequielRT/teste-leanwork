@@ -11,7 +11,7 @@
                 @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                @Html.DisplayNameFor(model => model.Login)
             </th>
             <th></th>
         </tr>
@@ -39,47 +39,36 @@
         $(document).ready(function() {
 
             // Insere modal
-             $(".btnModal").click(function () {
+            $(".btnModal").click(function () {
 
-                 var id = $(this).attr("data-id");
+                var id = $(this).attr("data-id");
+                      
+                var loading = $(this).children("span");
 
-                 var loading = $(this).children("span");
+                loading.removeClass("fa fa-search").addClass("fas fa-spinner fa-pulse");
 
-                 loading.removeClass("fa fa-search").addClass("fas fa-spinner fa-pulse");
-
-                 $(".btnModal").attr("disabled", true);
-                 
-                 // Carrega detalhes do usuario
-                 $.ajax({
+                $(".btnModal").attr("disabled", true);
+                
+                // Carrega detalhes do usuario
+                $.ajax({
                    url: "detalhes-do-usuario/" + id,
                    type: "GET",
                    dataType: "html",
                    success: function(data) {
-                       $(data).insertAfter("header");
-                     }
-                 });
+                      $(data).insertAfter("header");
+                      $("#exampleModal").modal('show');
+                      loading.removeClass("fas fa-spinner fa-pulse").addClass("fa fa-search");                       
+                      $(".btnModal").attr("disabled", false);
+                    }
+                });
+                
+            });
 
-
-                 // Carrega repositorios
-                 $.ajax({
-                   url: "repositorios-do-usuario/" + id,
-                   type: "GET",
-                   dataType: "html",
-                   success: function(data) {
-                       $("#UserRepositories").append(data);                       
-                       $("#exampleModal").modal('show');
-                       loading.removeClass("fas fa-spinner fa-pulse").addClass("fa fa-search");                       
-                       $(".btnModal").attr("disabled", false);
-                     }
-                 });
-                 
-             });
-
-             // Remove modal
-             $(document).on('hidden.bs.modal', '.modal', function () { 
-                 $("#exampleModal").remove(); 
-                 $(".modal-dialog").remove();
-             });
+            // Remove modal
+            $(document).on('hidden.bs.modal', '.modal', function () { 
+                $("#exampleModal").remove(); 
+                $(".modal-dialog").remove();
+            });
 
         });
      </script>

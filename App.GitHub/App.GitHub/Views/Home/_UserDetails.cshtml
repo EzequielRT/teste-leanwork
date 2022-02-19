@@ -1,35 +1,35 @@
-﻿@model App.GitHub.Models.GitHubUserDetails
+﻿@model App.GitHub.ViewModel.UserDetailsViewModel
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Detalhes do Usuario @Model.Login</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Detalhes do Usuario @Model.User.Login</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="container">
                     <div class="row">                        
                         <div class="col">
-                            <b>Id:</b> @Model.Id
+                            <b>Id:</b> @Model.User.Id
                             <hr />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <b>Login:</b> @Model.Login
+                            <b>Login:</b> @Model.User.Login
                             <hr />
                         </div>                        
                     </div>
                     <div class="row">                        
                         <div class="col">
-                            <b>Url:</b> <a href="@Model.HtmlUrl" target="_blank">@Model.HtmlUrl</a>
+                            <b>Url:</b> <a href="@Model.User.HtmlUrl" target="_blank">@Model.User.HtmlUrl</a>
                             <hr />
                         </div>
                     </div>
                     <div class="row">                        
                         <div class="col">
-                            <b>Cadastro:</b> @DateTimeOffset.Parse(@Model.CreatedAt.ToString("dd/MM/yyyy"))
+                            <b>Cadastro:</b> @DateTimeOffset.Parse(@Model.User.CreatedAt.ToString("dd/MM/yyyy HH:mm:ss"))
                             <hr />
                         </div>
                     </div>
@@ -38,7 +38,8 @@
                             <div class="mb-3">
                                 <b>Reposiórios:</b> 
                             </div>
-                            <div class="table-responsive" id="UserRepositories">                          
+                            <div class="table-responsive" id="UserRepositories">
+                                @await Html.PartialAsync("_UserRepositories", Model.UserRepositories)
                             </div>
                         </div>
                     </div>

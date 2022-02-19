@@ -37,13 +37,5 @@ app.MapControllerRoute(
         controller = "Home",
         action = "UserDetails"
     });
-app.MapControllerRoute(
-    name: "Home.UserRepositories",
-    pattern: "repositorios-do-usuario/{login}",
-    defaults: new
-    {
-        controller = "Home",
-        action = "UserRepositories"
-    });
 
 app.Run();
