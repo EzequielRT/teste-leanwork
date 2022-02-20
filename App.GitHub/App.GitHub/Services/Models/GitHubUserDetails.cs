@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace App.GitHub.Models
+namespace App.GitHub.Services.Models
 {
     public class GitHubUserDetails : GitHubUser
     {
@@ -35,15 +35,15 @@ namespace App.GitHub.Models
         public int? PublicGists { get; set; }
 
         [JsonPropertyName("followers")]
-        public long Followers { get; set; }
+        public long? Followers { get; set; }
 
         [JsonPropertyName("following")]
-        public long Following { get; set; }
+        public long? Following { get; set; }
 
         [JsonPropertyName("created_at")]
-        public DateTime CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
 
         [JsonPropertyName("updated_at")]
-        public DateTime UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
     }
 }

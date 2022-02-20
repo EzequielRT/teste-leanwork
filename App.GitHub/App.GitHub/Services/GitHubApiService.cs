@@ -1,4 +1,5 @@
-﻿using App.GitHub.Models;
+﻿using App.GitHub.Services.Interfaces;
+using App.GitHub.Services.Models;
 using RestSharp;
 
 namespace App.GitHub.Services

@@ -1,6 +1,6 @@
-﻿using App.GitHub.Models;
+﻿using App.GitHub.Services.Models;
 
-namespace App.GitHub.Services
+namespace App.GitHub.Services.Interfaces
 {
     public interface IGitHubApiService
     {

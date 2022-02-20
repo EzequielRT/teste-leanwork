@@ -1,10 +1,13 @@
 using App.GitHub.Services;
+using App.GitHub.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IGitHubApiService, GitHubApiService>();
+
+builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
 

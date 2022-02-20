@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace App.GitHub.Models
+namespace App.GitHub.Services.Models
 {
     public class GitHubUserRepository
     {
