@@ -37,7 +37,32 @@ namespace App.GitHub.Controllers
             if (userViewModel == null) return NotFound();
 
             return PartialView("_UserDetails", userViewModel);
-        }        
+        }
+
+        [Route("erro/{id:length(3,3)}")]
+        public IActionResult Errors(int id)
+        {
+            var modelErro = new ErrorViewModel();
+
+            switch (id)
+            {
+                case 500:
+                    modelErro.Mensagem = "Ocorreu um erro! Tente novamente mais tarde ou contate nosso suporte.";
+                    modelErro.Titulo = "Ocorreu um erro!";
+                    modelErro.ErroCode = id;
+                    break;
+                case 404:
+                    modelErro.Mensagem = "A página que está procurando não existe! <br />Em caso de dúvidas entre em contato com nosso suporte";
+                    modelErro.Titulo = "Ops! Página não encontrada.";
+                    modelErro.ErroCode = id;
+                    break;
+                default:
+                    return StatusCode(500);
+                    break;
+            }
+
+            return View("Error", modelErro);
+        }
 
         private async Task<UserDetailsViewModel> GetUserDetails(string login, UserDetailsViewModel userViewModel)
         {
