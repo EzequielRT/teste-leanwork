@@ -58,7 +58,6 @@ namespace App.GitHub.Controllers
                     break;
                 default:
                     return StatusCode(500);
-                    break;
             }
 
             return View("Error", modelErro);
