@@ -22,23 +22,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
+app.MapControllers();
 
-app.MapControllerRoute(
-    name: "Home.Index",
-    pattern: "",
-    defaults: new
-    {
-        controller = "Home",
-        action = "Index"
-    });
-app.MapControllerRoute(
-    name: "Home.UserDetails",
-    pattern: "detalhes-do-usuario/{login}",
-    defaults: new
-    {
-        controller = "Home",
-        action = "UserDetails"
-    });
+app.UseAuthorization();
 
 app.Run();

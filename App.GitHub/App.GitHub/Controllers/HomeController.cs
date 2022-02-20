@@ -16,6 +16,7 @@ namespace App.GitHub.Controllers
             _mapper = mapper;
         }
 
+        [Route("")]
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -26,6 +27,7 @@ namespace App.GitHub.Controllers
             return View(users);
         }
 
+        [Route("detalhes-do-usuario/{login}")]
         [HttpGet]
         public async Task<IActionResult> UserDetails(string login)
         {
