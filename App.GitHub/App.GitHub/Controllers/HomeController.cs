@@ -10,14 +10,17 @@ namespace App.GitHub.Controllers
     {
         private readonly IGitHubApiService _gitHubApiService;
         private readonly IMapper _mapper;
+        private readonly IMemoryCache _cache;
 
         public HomeController(IGitHubApiService gitHubApiService, IMapper mapper, IMemoryCache cache)
         {
             _gitHubApiService = gitHubApiService;
             _mapper = mapper;
+            _cache = cache;
         }
 
         [Route("")]
+        [ResponseCache(CacheProfileName = "OneHour")]
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -32,7 +35,11 @@ namespace App.GitHub.Controllers
         [HttpGet]
         public async Task<IActionResult> LoadMoreUsers(int since)
         {
-            var users = _mapper.Map<IEnumerable<UserViewModel>>(await _gitHubApiService.GetAllUsersAsync(since));
+            var users = await _cache.GetOrCreateAsync(since, async entry =>
+            {
+                entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(1);
+                return _mapper.Map<IEnumerable<UserViewModel>>(await _gitHubApiService.GetAllUsersAsync(since));
+            });
 
             if (users == null) return NotFound();
 
@@ -43,8 +50,21 @@ namespace App.GitHub.Controllers
         [HttpGet]
         public async Task<IActionResult> UserDetails(string login)
         {
-            var userViewModel = await GetUserDetails(login, new UserDetailsViewModel());
-            userViewModel.Repositories = await GetUserRepositories(login);
+            var cacheKey = login;
+            UserDetailsViewModel userViewModel;
+
+            if (!_cache.TryGetValue(login, out userViewModel))
+            {
+                var cacheOptions = new MemoryCacheEntryOptions()
+                {
+                    AbsoluteExpiration = DateTime.Now.AddMinutes(30)
+                };
+
+                userViewModel = await GetUserDetails(login, new UserDetailsViewModel());
+                userViewModel.Repositories = await GetUserRepositories(login);
+
+                _cache.Set(cacheKey, userViewModel, cacheOptions);
+            }
 
             if (userViewModel == null) return NotFound();
 
