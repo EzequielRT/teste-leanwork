@@ -20,3 +20,9 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+#loading {
+    width: 70px;
+    height: auto;
+    display: none;
+}

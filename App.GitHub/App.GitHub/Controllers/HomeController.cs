@@ -2,6 +2,7 @@
 using App.GitHub.ViewModels;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace App.GitHub.Controllers
 {
@@ -10,7 +11,7 @@ namespace App.GitHub.Controllers
         private readonly IGitHubApiService _gitHubApiService;
         private readonly IMapper _mapper;
 
-        public HomeController(IGitHubApiService gitHubApiService, IMapper mapper)
+        public HomeController(IGitHubApiService gitHubApiService, IMapper mapper, IMemoryCache cache)
         {
             _gitHubApiService = gitHubApiService;
             _mapper = mapper;
@@ -25,6 +26,17 @@ namespace App.GitHub.Controllers
             if (users == null) return NotFound();
 
             return View(users);
+        }
+
+        [Route("carregar-mais-usuarios/{since:int}")]
+        [HttpGet]
+        public async Task<IActionResult> LoadMoreUsers(int since)
+        {
+            var users = _mapper.Map<IEnumerable<UserViewModel>>(await _gitHubApiService.GetAllUsersAsync(since));
+
+            if (users == null) return NotFound();
+
+            return PartialView("_AllUsers", users);
         }
 
         [Route("detalhes-do-usuario/{login}")]
@@ -57,7 +69,8 @@ namespace App.GitHub.Controllers
                     modelErro.ErroCode = id;
                     break;
                 default:
-                    return StatusCode(500);
+                    StatusCode(500);
+                    break;
             }
 
             return View("Error", modelErro);

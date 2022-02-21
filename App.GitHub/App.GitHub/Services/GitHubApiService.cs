@@ -29,6 +29,17 @@ namespace App.GitHub.Services
             return users;
         }
 
+        public async Task<IEnumerable<GitHubUser>> GetAllUsersAsync(int since)
+        {
+            var request = new RestRequest("users", Method.Get)
+                .AddParameter("per_page", "100")
+                .AddParameter("since", since);
+            var response = await _client.ExecuteAsync<IEnumerable<GitHubUser>>(request);
+            IEnumerable<GitHubUser>? users = response.Data;
+
+            return users;
+        }
+
         public async Task<GitHubUserDetails> GetUserDetailsAsync(string login)
         {
             var request = new RestRequest("users/{username}", Method.Get)

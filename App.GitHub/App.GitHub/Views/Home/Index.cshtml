@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<App.GitHub.ViewModels.UserViewModel>
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
 <table class="table table-hover">
@@ -17,19 +17,20 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Login)
-                </td>
-                <td>
-                    <button class="btn btn-warning btnModal" data-id="@item.Login"><span class="fa fa-search"></span></button>
-                </td>
-            </tr>
-        }
+        @await Html.PartialAsync("_AllUsers", Model)
     </tbody>
 </table>
+
+<div class="d-grid gap-2 col-4 mx-auto">
+  <button class="btn btn-outline-dark" id="btnCarregaUsuarios" type="button">Mais usuários</button>
+</div>
+<div class="d-flex justify-content-center">
+    <img src="~/loading.svg" alt="Loading" id="loading" />
+</div>
+
+@section Scripts{
+    <script>
+        DetalhesDoUsuario();
+        CarregarMaisUsuarios();
+    </script>
+}
