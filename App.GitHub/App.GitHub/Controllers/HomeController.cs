@@ -8,15 +8,20 @@ namespace App.GitHub.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IGitHubApiService _gitHubApiService;
+        private readonly IGitHubApiUsers _gitHubApiUsers;
+        private readonly IGitHubApiRepositories _gitHubApiRepositories;
         private readonly IMapper _mapper;
         private readonly IMemoryCache _cache;
 
-        public HomeController(IGitHubApiService gitHubApiService, IMapper mapper, IMemoryCache cache)
+        public HomeController(IGitHubApiUsers gitHubApiUsers,
+                              IGitHubApiRepositories gitHubApiRepositories,
+                              IMemoryCache cache,
+                              IMapper mapper)
         {
-            _gitHubApiService = gitHubApiService;
-            _mapper = mapper;
+            _gitHubApiUsers = gitHubApiUsers;
+            _gitHubApiRepositories = gitHubApiRepositories;
             _cache = cache;
+            _mapper = mapper;
         }
 
         [Route("")]
@@ -24,7 +29,7 @@ namespace App.GitHub.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var users = _mapper.Map<IEnumerable<UserViewModel>>(await _gitHubApiService.GetAllUsersAsync());
+            var users = _mapper.Map<IEnumerable<UserViewModel>>(await _gitHubApiUsers.GetAllUsersAsync());
 
             if (users == null) return NotFound();
 
@@ -38,7 +43,7 @@ namespace App.GitHub.Controllers
             var users = await _cache.GetOrCreateAsync(since, async entry =>
             {
                 entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(1);
-                return _mapper.Map<IEnumerable<UserViewModel>>(await _gitHubApiService.GetAllUsersAsync(since));
+                return _mapper.Map<IEnumerable<UserViewModel>>(await _gitHubApiUsers.GetAllUsersAsync(since));
             });
 
             if (users == null) return NotFound();
@@ -98,13 +103,13 @@ namespace App.GitHub.Controllers
 
         private async Task<UserDetailsViewModel> GetUserDetails(string login, UserDetailsViewModel userViewModel)
         {
-            userViewModel = _mapper.Map<UserDetailsViewModel>(await _gitHubApiService.GetUserDetailsAsync(login));
+            userViewModel = _mapper.Map<UserDetailsViewModel>(await _gitHubApiUsers.GetUserDetailsAsync(login));
             return userViewModel;
         }
 
         private async Task<IEnumerable<UserRepositoryViewModel>> GetUserRepositories(string login)
         {
-            var repositories = _mapper.Map<IEnumerable<UserRepositoryViewModel>>(await _gitHubApiService.GetUserRepositoriesAsync(login));
+            var repositories = _mapper.Map<IEnumerable<UserRepositoryViewModel>>(await _gitHubApiRepositories.GetUserRepositoriesAsync(login));
             return repositories;
         }
     }

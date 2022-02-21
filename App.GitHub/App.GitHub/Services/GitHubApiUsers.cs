@@ -4,11 +4,11 @@ using RestSharp;
 
 namespace App.GitHub.Services
 {
-    public class GitHubApiService : IGitHubApiService
+    public class GitHubApiUsers : IGitHubApiUsers
     {
         private readonly RestClient _client;
 
-        public GitHubApiService()
+        public GitHubApiUsers()
         {
             var options = new RestClientOptions("https://api.github.com/")
             {
@@ -48,17 +48,6 @@ namespace App.GitHub.Services
             GitHubUserDetails? user = response.Data;
 
             return user;
-        }
-
-        public async Task<IEnumerable<GitHubUserRepository>> GetUserRepositoriesAsync(string login)
-        {
-            var request = new RestRequest("users/{username}/repos", Method.Get)
-                .AddParameter("per_page", "100")
-                .AddUrlSegment("username", login);
-            var response = await _client.ExecuteGetAsync<IEnumerable<GitHubUserRepository>>(request);
-            IEnumerable<GitHubUserRepository>? repositories = response.Data;
-
-            return repositories;
         }
 
         public void Dispose()

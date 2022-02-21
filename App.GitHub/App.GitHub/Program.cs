@@ -6,7 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddScoped<IGitHubApiService, GitHubApiService>();
+builder.Services.AddScoped<IGitHubApiUsers, GitHubApiUsers>();
+builder.Services.AddScoped<IGitHubApiRepositories, GitHubApiRepositories>();
 
 builder.Services.AddAutoMapper(typeof(Program));
 
